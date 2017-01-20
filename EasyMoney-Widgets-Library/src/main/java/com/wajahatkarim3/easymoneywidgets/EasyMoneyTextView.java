@@ -16,8 +16,9 @@ import java.util.Locale;
 
 public class EasyMoneyTextView extends TextView {
 
-    private String currencySymbol;
-    private boolean showCurrency;
+    private String _currencySymbol;
+    private boolean _showCurrency;
+    private boolean _showCommas;
 
     public EasyMoneyTextView(Context context) {
         super(context);
@@ -32,8 +33,9 @@ public class EasyMoneyTextView extends TextView {
     private void initView(Context context, AttributeSet attrs)
     {
         // Setting Default Parameters
-        currencySymbol = Currency.getInstance(Locale.getDefault()).getSymbol();
-        showCurrency = true;
+        _currencySymbol = Currency.getInstance(Locale.getDefault()).getSymbol();
+        _showCurrency = true;
+        _showCommas = true;
 
         // Check for the attributes
         if (attrs != null)
@@ -46,7 +48,8 @@ public class EasyMoneyTextView extends TextView {
                     currnecy = Currency.getInstance(Locale.getDefault()).getSymbol();
                 setCurrency(currnecy);
 
-                showCurrency = attrArray.getBoolean(R.styleable.EasyMoneyWidgets_show_currency, true);
+                _showCurrency = attrArray.getBoolean(R.styleable.EasyMoneyWidgets_show_currency, true);
+                _showCommas = attrArray.getBoolean(R.styleable.EasyMoneyWidgets_show_commas, true);
             }
             finally {
                 attrArray.recycle();
@@ -63,6 +66,7 @@ public class EasyMoneyTextView extends TextView {
 
     public void setValue(String valueStr)
     {
+        /*
         try {
             String originalString = valueStr.toString();
             String inputStrin = originalString;
@@ -77,8 +81,8 @@ public class EasyMoneyTextView extends TextView {
             longval = Long.parseLong(originalString);
 
             DecimalFormat formatter = (DecimalFormat) NumberFormat.getInstance(Locale.getDefault());
-            if (showCurrency)
-                formatter.applyPattern(currencySymbol + " #,###,###,###");
+            if (_showCurrency)
+                formatter.applyPattern(_currencySymbol + " #,###,###,###");
             else formatter.applyPattern("#,###,###,###");
             String formattedString = formatter.format(longval);
 
@@ -88,6 +92,73 @@ public class EasyMoneyTextView extends TextView {
         } catch (NumberFormatException nfe) {
             nfe.printStackTrace();
         }
+        */
+
+        String backupString = valueStr;
+        try {
+            String originalString = valueStr;
+
+            long longval;
+
+            originalString = getValueString();
+            longval = (Long.parseLong(originalString));
+            String formattedString = getDecoratedStringFromNumber(longval);
+
+            //setting text after format to EditText
+            setText(formattedString);
+
+        } catch (NumberFormatException nfe) {
+            nfe.printStackTrace();
+            setText(backupString);
+
+            String valStr = getValueString();
+
+            if (valStr.equals(""))
+            {
+                long val = 0;
+                setText(getDecoratedStringFromNumber(val));
+            }
+            else {
+                // Some decimal number
+                if (valStr.contains("."))
+                {
+                    if (valStr.indexOf(".") == valStr.length()-1)
+                    {
+                        // decimal has been currently put
+                        String front = getDecoratedStringFromNumber(Long.parseLong(valStr.substring(0, valStr.length()-1)));
+                        setText(front + ".");
+                    }
+                    else {
+                        String[] nums = getValueString().split("\\.");
+                        String front = getDecoratedStringFromNumber(Long.parseLong(nums[0]));
+                        setText(front+"."+nums[1]);
+                    }
+                }
+            }
+        }
+    }
+
+    private String getDecoratedStringFromNumber(long number)
+    {
+        String numberPattern = "#,###,###,###";
+        String decoStr = "";
+
+        DecimalFormat formatter = (DecimalFormat) DecimalFormat.getInstance(Locale.getDefault());
+        if (_showCommas && !_showCurrency)
+            formatter.applyPattern(numberPattern);
+        else if (_showCommas && _showCurrency)
+            formatter.applyPattern(_currencySymbol + " " + numberPattern);
+        else if (!_showCommas && _showCurrency)
+            formatter.applyPattern(_currencySymbol + " ");
+        else if (!_showCommas && !_showCurrency)
+        {
+            decoStr = number + "";
+            return decoStr;
+        }
+
+        decoStr = formatter.format(number);
+
+        return decoStr;
     }
 
     //Trims all the comma of the string and returns
@@ -111,7 +182,7 @@ public class EasyMoneyTextView extends TextView {
 
     public void setCurrency(String newSymbol)
     {
-        currencySymbol = newSymbol;
+        _currencySymbol = newSymbol;
         setValue(getText().toString());
     }
 
@@ -127,13 +198,13 @@ public class EasyMoneyTextView extends TextView {
 
     public void setShowCurrency(boolean value)
     {
-        showCurrency = value;
+        _showCurrency = value;
         setValue(getText().toString());
     }
 
     public boolean isShowCurrency()
     {
-        return showCurrency;
+        return _showCurrency;
     }
 
     public void showCurrencySymbol()
@@ -144,5 +215,17 @@ public class EasyMoneyTextView extends TextView {
     public void hideCurrencySymbol()
     {
         setShowCurrency(false);
+    }
+
+    public void showCommas()
+    {
+        _showCommas = true;
+        setValue(getText().toString());
+    }
+
+    public void hideCommas()
+    {
+        _showCommas = false;
+        setValue(getText().toString());
     }
 }

@@ -13,6 +13,7 @@
     tools:context="com.wajahatkarim3.easymoneywidgets.demo.MainActivity">
 
     <com.wajahatkarim3.easymoneywidgets.EasyMoneyEditText
+        android:id="@+id/moneyEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="123456234"
@@ -22,11 +23,28 @@
         />
 
     <com.wajahatkarim3.easymoneywidgets.EasyMoneyTextView
+        android:id="@+id/moneyTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="123456"
+        android:text="12345.632"
         app:show_currency="true"
-        app:currency_symbol="PKR"/>
+        app:show_commas="true" />
+
+    <CheckBox android:id="@+id/checkCurrency"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Show Currency"
+        android:checked="true"
+        android:layout_marginTop="50dp"/>
+
+    <CheckBox android:id="@+id/checkCommas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Show Commas"
+        android:checked="true"
+        android:layout_marginTop="10dp"/>
+
+    
 
 </LinearLayout>

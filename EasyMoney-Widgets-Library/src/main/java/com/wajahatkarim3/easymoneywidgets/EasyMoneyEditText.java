@@ -5,8 +5,10 @@ import android.content.res.TypedArray;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.util.LongSparseArray;
 import android.widget.EditText;
 
+import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Currency;
@@ -18,9 +20,9 @@ import java.util.Locale;
 
 public class EasyMoneyEditText extends EditText {
 
-    private String currencySymbol;
-    private boolean showCurrency;
-    private boolean showCommas;
+    private String _currencySymbol;
+    private boolean _showCurrency;
+    private boolean _showCommas;
 
     public EasyMoneyEditText(Context context) {
         super(context);
@@ -42,8 +44,9 @@ public class EasyMoneyEditText extends EditText {
     private void initView(Context context, AttributeSet attrs)
     {
         // Setting Default Parameters
-        currencySymbol = Currency.getInstance(Locale.getDefault()).getSymbol();
-        showCurrency = true;
+        _currencySymbol = Currency.getInstance(Locale.getDefault()).getSymbol();
+        _showCurrency = true;
+        _showCommas = true;
 
         // Check for the attributes
         if (attrs != null)
@@ -56,8 +59,8 @@ public class EasyMoneyEditText extends EditText {
                     currnecy = Currency.getInstance(Locale.getDefault()).getSymbol();
                 setCurrency(currnecy);
 
-                showCurrency = attrArray.getBoolean(R.styleable.EasyMoneyWidgets_show_currency, true);
-                showCommas = attrArray.getBoolean(R.styleable.EasyMoneyWidgets_show_commas, true);
+                _showCurrency = attrArray.getBoolean(R.styleable.EasyMoneyWidgets_show_currency, true);
+                _showCommas = attrArray.getBoolean(R.styleable.EasyMoneyWidgets_show_commas, true);
             }
             finally {
                 attrArray.recycle();
@@ -84,31 +87,12 @@ public class EasyMoneyEditText extends EditText {
 
                 try {
                     String originalString = charSequence.toString();
-                    String inputStrin = originalString;
 
-                    Long longval;
+                    long longval;
 
                     originalString = getValueString();
-
-                    longval = Long.parseLong(originalString);
-
-                    DecimalFormat formatter = (DecimalFormat) NumberFormat.getInstance(Locale.getDefault());
-                    if (showCommas && !showCurrency)
-                        formatter.applyPattern("#,###,###,###");
-                    else if (showCommas && showCurrency)
-                        formatter.applyPattern(currencySymbol + " #,###,###,###");
-                    else if (!showCommas && showCurrency)
-                        formatter.applyPattern(currencySymbol + " ");
-                    else if (!showCommas && !showCurrency)
-                    {
-                        setText(originalString);
-                        setSelection(getText().length());
-                        EasyMoneyEditText.this.addTextChangedListener(this);
-                        return;
-                        //formatter.applyPattern("");
-                    }
-
-                    String formattedString = formatter.format(longval);
+                    longval = (Long.parseLong(originalString));
+                    String formattedString = getDecoratedStringFromNumber(longval);
 
                     //setting text after format to EditText
                     setText(formattedString);
@@ -117,6 +101,31 @@ public class EasyMoneyEditText extends EditText {
                 } catch (NumberFormatException nfe) {
                     nfe.printStackTrace();
                     setText(backupString);
+
+                    String valStr = getValueString();
+
+                    if (valStr.equals(""))
+                    {
+                        long val = 0;
+                        setText(getDecoratedStringFromNumber(val));
+                    }
+                    else {
+                        // Some decimal number
+                        if (valStr.contains("."))
+                        {
+                            if (valStr.indexOf(".") == valStr.length()-1)
+                            {
+                                // decimal has been currently put
+                                String front = getDecoratedStringFromNumber(Long.parseLong(valStr.substring(0, valStr.length()-1)));
+                                setText(front + ".");
+                            }
+                            else {
+                                String[] nums = getValueString().split("\\.");
+                                String front = getDecoratedStringFromNumber(Long.parseLong(nums[0]));
+                                setText(front+"."+nums[1]);
+                            }
+                        }
+                    }
                     setSelection(getText().length());
                 }
 
@@ -134,6 +143,29 @@ public class EasyMoneyEditText extends EditText {
     private void updateValue(String text)
     {
         setText(text);
+    }
+
+    private String getDecoratedStringFromNumber(long number)
+    {
+        String numberPattern = "#,###,###,###";
+        String decoStr = "";
+
+        DecimalFormat formatter = (DecimalFormat) DecimalFormat.getInstance(Locale.getDefault());
+        if (_showCommas && !_showCurrency)
+            formatter.applyPattern(numberPattern);
+        else if (_showCommas && _showCurrency)
+            formatter.applyPattern(_currencySymbol + " " + numberPattern);
+        else if (!_showCommas && _showCurrency)
+            formatter.applyPattern(_currencySymbol + " ");
+        else if (!_showCommas && !_showCurrency)
+        {
+            decoStr = number + "";
+            return decoStr;
+        }
+
+        decoStr = formatter.format(number);
+
+        return decoStr;
     }
 
     //Trims all the comma of the string and returns
@@ -157,7 +189,7 @@ public class EasyMoneyEditText extends EditText {
 
     public void setCurrency(String newSymbol)
     {
-        currencySymbol = newSymbol;
+        _currencySymbol = newSymbol;
         updateValue(getText().toString());
     }
 
@@ -173,13 +205,13 @@ public class EasyMoneyEditText extends EditText {
 
     public void setShowCurrency(boolean value)
     {
-        showCurrency = value;
+        _showCurrency = value;
         updateValue(getText().toString());
     }
 
     public boolean isShowCurrency()
     {
-        return showCurrency;
+        return _showCurrency;
     }
 
     public void showCurrencySymbol()
@@ -190,6 +222,18 @@ public class EasyMoneyEditText extends EditText {
     public void hideCurrencySymbol()
     {
         setShowCurrency(false);
+    }
+
+    public void showCommas()
+    {
+        _showCommas = true;
+        updateValue(getText().toString());
+    }
+
+    public void hideCommas()
+    {
+        _showCommas = false;
+        updateValue(getText().toString());
     }
 
 }
