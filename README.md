@@ -33,7 +33,75 @@ Or add EasyMoney-Widgets as a new dependency inside your pom.xml
   <type>pom</type>
 </dependency>
 ```
+Usage
+=====
+XML
+---
+```EasyMoneyEditText``` in xml layouts (output will be ```$ 123,456,234```)
+```xml
+ <com.wajahatkarim3.easymoneywidgets.EasyMoneyEditText
+        android:id="@+id/moneyEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="123456234"
+        android:inputType="numberDecimal"
+        app:show_currency="true"
+        app:show_commas="true"
+        app:currency_symbol="$"
+        />
+```
+```EasyMoneyTextView``` in xml layouts (output will be ```$ 123,456,234```)
+```xml
+ <com.wajahatkarim3.easymoneywidgets.EasyMoneyTextView
+        android:id="@+id/moneyTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="123456234"
+        app:show_currency="true"
+        app:show_commas="true"
+        app:currency_symbol="$"
+        />
+```
+Customization in XML
+---
+All customizable attributes for EasyFlipView
+```xml
+<declare-styleable name="EasyMoneyWidgets">
+	<!-- The currency symbol for the widgets (Default is US Dollar $ ) -->
+	<attr name="currency_symbol" format="string"/>
+	
+	<!-- Whether to show the currency symbol in the widgets (Default is true) -->
+	<attr name="show_currency" format="boolean"/>
+	
+	<!-- Whether to show the commas between numbers in the widgets (Default is true) -->
+	<attr name="show_commas" format="boolean"/>
+</declare-styleable>
+```
+In Code (Java)
+----
+```java
+// Set the value for money widgets
+moneyEditText.setText("23456.01");                          // $ 23,456.01
+moneyTextView.setText("1234");                              // $ 1,234
 
+// Get the value from money widgets
+String valForm = moneyView.getFormattedString();            // $ 23,456.01
+String valRaw = moneyView.getValueString();                 // 23456.01
+
+// Set the currency of the money widgets
+moneyView.setCurrency("€");                                 // € 23,456.01
+moneyView.setCurrency(Locale.UK);                           // £ 23,456.01
+moneyView.setCurrency(Currency.getInstance(Locale.US));     // $ 23,456.01
+
+// Show/hide currency of the money widgets
+moneyView.showCurrencySymbol();                             // $ 23,456.01
+moneyView.hideCurrencySymbol();                             // 23,456.01
+boolean curr = moneyView.isShowCurrency();                  // true if currency is shown
+
+// Show/hide commas of the money widgets
+moneyView.showCommas();                                     // $ 23,456.01
+moneyView.hideCommas();                                     // $ 23456.01
+```
 
 
 Developed By
