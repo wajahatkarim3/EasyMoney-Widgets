@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">EasyMoney-Widgets-Demo</string>
+
+    <array name="currency_array">
+        <item>US Dollar ($)</item>
+        <item>Euro (€)</item>
+        <item>Japanese Yan (¥)</item>
+        <item>British Pound (£)</item>
+        <item>Saudi Ryal (﷼)</item>
+    </array>
+
 </resources>

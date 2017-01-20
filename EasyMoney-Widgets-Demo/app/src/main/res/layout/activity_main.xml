@@ -45,6 +45,21 @@
         android:checked="true"
         android:layout_marginTop="10dp"/>
 
-    
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Currency"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginLeft="40dp"/>
+
+    <Spinner android:id="@+id/spinnerCurrency"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="4dp"
+        android:entries="@array/currency_array"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"></Spinner>
 
 </LinearLayout>

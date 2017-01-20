@@ -4,8 +4,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.Spinner;
 
 import com.wajahatkarim3.easymoneywidgets.EasyMoneyEditText;
 import com.wajahatkarim3.easymoneywidgets.EasyMoneyTextView;
@@ -14,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
 
     EasyMoneyEditText moneyEditText;
     EasyMoneyTextView moneyTextView;
+    Spinner spinnerCurrency;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
         moneyEditText = (EasyMoneyEditText) findViewById(R.id.moneyEditText);
         moneyTextView = (EasyMoneyTextView) findViewById(R.id.moneyTextView);
+        spinnerCurrency = (Spinner) findViewById(R.id.spinnerCurrency);
 
         CheckBox checkCommas = (CheckBox) findViewById(R.id.checkCommas);
         checkCommas.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -37,7 +42,6 @@ public class MainActivity extends AppCompatActivity {
                     moneyEditText.hideCommas();
                     moneyTextView.hideCommas();
                 }
-
             }
         });
 
@@ -54,6 +58,22 @@ public class MainActivity extends AppCompatActivity {
                     moneyEditText.hideCurrencySymbol();
                     moneyTextView.hideCurrencySymbol();
                 }
+            }
+        });
+
+        spinnerCurrency.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                String itemName = spinnerCurrency.getSelectedItem().toString();
+                String symbol = itemName.substring(itemName.indexOf("(")+1, itemName.indexOf(")"));
+                moneyEditText.setCurrency(symbol);
+                moneyTextView.setCurrency(symbol);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
             }
         });
     }
