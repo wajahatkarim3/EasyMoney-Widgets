@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.CheckBox;
@@ -14,6 +15,8 @@ import com.wajahatkarim3.easymoneywidgets.EasyMoneyEditText;
 import com.wajahatkarim3.easymoneywidgets.EasyMoneyTextView;
 
 public class MainActivity extends AppCompatActivity {
+
+    public static final String TAG = MainActivity.class.getSimpleName();
 
     EasyMoneyEditText moneyEditText;
     EasyMoneyTextView moneyTextView;
@@ -42,6 +45,12 @@ public class MainActivity extends AppCompatActivity {
                     moneyEditText.hideCommas();
                     moneyTextView.hideCommas();
                 }
+
+                Log.w(TAG, "onCreate: Value: " + moneyTextView.getValueString() );
+                Log.w(TAG, "onCreate: Formatted Value: " + moneyTextView.getFormattedString() );
+
+                Log.e(TAG, "onCreate: Value: " + moneyEditText.getValueString() );
+                Log.e(TAG, "onCreate: Formatted Value: " + moneyEditText.getFormattedString() );
             }
         });
 
@@ -58,6 +67,12 @@ public class MainActivity extends AppCompatActivity {
                     moneyEditText.hideCurrencySymbol();
                     moneyTextView.hideCurrencySymbol();
                 }
+
+                Log.w(TAG, "onCreate: Value: " + moneyTextView.getValueString() );
+                Log.w(TAG, "onCreate: Formatted Value: " + moneyTextView.getFormattedString() );
+
+                Log.e(TAG, "onCreate: Value: " + moneyEditText.getValueString() );
+                Log.e(TAG, "onCreate: Formatted Value: " + moneyEditText.getFormattedString() );
             }
         });
 
@@ -69,6 +84,12 @@ public class MainActivity extends AppCompatActivity {
                 String symbol = itemName.substring(itemName.indexOf("(")+1, itemName.indexOf(")"));
                 moneyEditText.setCurrency(symbol);
                 moneyTextView.setCurrency(symbol);
+
+                Log.w(TAG, "onCreate: Value: " + moneyTextView.getValueString() );
+                Log.w(TAG, "onCreate: Formatted Value: " + moneyTextView.getFormattedString() );
+
+                Log.e(TAG, "onCreate: Value: " + moneyEditText.getValueString() );
+                Log.e(TAG, "onCreate: Formatted Value: " + moneyEditText.getFormattedString() );
             }
 
             @Override
@@ -76,5 +97,13 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+        moneyTextView.setText("123456");
+
+        Log.w(TAG, "onCreate: Value: " + moneyTextView.getValueString() );
+        Log.w(TAG, "onCreate: Formatted Value: " + moneyTextView.getFormattedString() );
+
+        Log.e(TAG, "onCreate: Value: " + moneyEditText.getValueString() );
+        Log.e(TAG, "onCreate: Formatted Value: " + moneyEditText.getFormattedString() );
     }
 }

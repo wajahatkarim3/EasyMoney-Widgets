@@ -11,9 +11,14 @@ import java.util.Currency;
 import java.util.Locale;
 
 /**
- * Created by Wajahat on 1/19/2017.
+ * The TextView widget for support of money requirements like currency, number formatting, comma formatting etc.
+ *
+ * Add com.wajahatkarim3.easymoneywidgets.EasyMoneyTextView into your XML layouts and you are done!
+ * For more information, check http://github.com/wajahatkarim3/EasyMoney-Widgets
+ *
+ * @author Wajahat Karim (http://wajahatkarim.com)
+ * @version 1.0.0 01/20/2017
  */
-
 public class EasyMoneyTextView extends TextView {
 
     private String _currencySymbol;
@@ -64,41 +69,36 @@ public class EasyMoneyTextView extends TextView {
         setValue(getText().toString());
     }
 
-    public void setValue(String valueStr)
+    private String getDecoratedStringFromNumber(long number)
     {
-        /*
-        try {
-            String originalString = valueStr.toString();
-            String inputStrin = originalString;
+        String numberPattern = "#,###,###,###";
+        String decoStr = "";
 
-            Long longval;
-            if (originalString.contains(",")) {
-                originalString = originalString.replaceAll(",", "");
-            }
-
-            originalString = getValueString();
-
-            longval = Long.parseLong(originalString);
-
-            DecimalFormat formatter = (DecimalFormat) NumberFormat.getInstance(Locale.getDefault());
-            if (_showCurrency)
-                formatter.applyPattern(_currencySymbol + " #,###,###,###");
-            else formatter.applyPattern("#,###,###,###");
-            String formattedString = formatter.format(longval);
-
-            //setting text after format to EditText
-            setText(formattedString);
-
-        } catch (NumberFormatException nfe) {
-            nfe.printStackTrace();
+        DecimalFormat formatter = (DecimalFormat) DecimalFormat.getInstance(Locale.getDefault());
+        if (_showCommas && !_showCurrency)
+            formatter.applyPattern(numberPattern);
+        else if (_showCommas && _showCurrency)
+            formatter.applyPattern(_currencySymbol + " " + numberPattern);
+        else if (!_showCommas && _showCurrency)
+            formatter.applyPattern(_currencySymbol + " ");
+        else if (!_showCommas && !_showCurrency)
+        {
+            decoStr = number + "";
+            return decoStr;
         }
-        */
 
+        decoStr = formatter.format(number);
+
+        return decoStr;
+    }
+
+    private void setValue(String valueStr)
+    {
         String backupString = valueStr;
         try {
             String originalString = valueStr;
 
-            long longval;
+            long longval = 0;
 
             originalString = getValueString();
             longval = (Long.parseLong(originalString));
@@ -138,30 +138,11 @@ public class EasyMoneyTextView extends TextView {
         }
     }
 
-    private String getDecoratedStringFromNumber(long number)
-    {
-        String numberPattern = "#,###,###,###";
-        String decoStr = "";
-
-        DecimalFormat formatter = (DecimalFormat) DecimalFormat.getInstance(Locale.getDefault());
-        if (_showCommas && !_showCurrency)
-            formatter.applyPattern(numberPattern);
-        else if (_showCommas && _showCurrency)
-            formatter.applyPattern(_currencySymbol + " " + numberPattern);
-        else if (!_showCommas && _showCurrency)
-            formatter.applyPattern(_currencySymbol + " ");
-        else if (!_showCommas && !_showCurrency)
-        {
-            decoStr = number + "";
-            return decoStr;
-        }
-
-        decoStr = formatter.format(number);
-
-        return decoStr;
-    }
-
-    //Trims all the comma of the string and returns
+    /**
+     * Get the value of the text without any commas and currency.
+     * For example, if the edit text value is $ 1,34,000.60 then this method will return 134000.60
+     * @return A string of the raw value in the text field
+     */
     public String getValueString() {
 
         String string = getText().toString();
@@ -175,22 +156,40 @@ public class EasyMoneyTextView extends TextView {
         return string;
     }
 
+    /**
+     * Get the value of the text with formatted commas and currency.
+     * For example, if the edit text value is $ 1,34,000.60 then this method will return exactly $ 1,34,000.60
+     * @return A string of the text value in the text field
+     */
     public String getFormattedString()
     {
+        setValue(getText().toString());
         return getText().toString();
     }
 
+    /**
+     * Set the currency symbol for the edit text. (Default is US Dollar $).
+     * @param newSymbol the new symbol of currency in string
+     */
     public void setCurrency(String newSymbol)
     {
         _currencySymbol = newSymbol;
         setValue(getText().toString());
     }
 
+    /**
+     * Set the currency symbol for the edit text. (Default is US Dollar $).
+     * @param locale the locale of new symbol. (Defaul is Locale.US)
+     */
     public void setCurrency(Locale locale)
     {
         setCurrency(Currency.getInstance(locale).getSymbol());
     }
 
+    /**
+     * Set the currency symbol for the edit text. (Default is US Dollar $).
+     * @param currency the currency object of new symbol. (Defaul is Locale.US)
+     */
     public void setCurrency(Currency currency)
     {
         setCurrency(currency.getSymbol());
@@ -202,27 +201,43 @@ public class EasyMoneyTextView extends TextView {
         setValue(getText().toString());
     }
 
+    /**
+     * Whether currency is shown in the text or not. (Default is true)
+     * @return true if the currency is shown otherwise false.
+     */
     public boolean isShowCurrency()
     {
         return _showCurrency;
     }
 
+    /**
+     * Shows the currency in the text. (Default is shown).
+     */
     public void showCurrencySymbol()
     {
         setShowCurrency(true);
     }
 
+    /**
+     * Hides the currency in the text. (Default is shown).
+     */
     public void hideCurrencySymbol()
     {
         setShowCurrency(false);
     }
 
+    /**
+     * Shows the commas in the text. (Default is shown).
+     */
     public void showCommas()
     {
         _showCommas = true;
         setValue(getText().toString());
     }
 
+    /**
+     * Hides the commas in the text. (Default is shown).
+     */
     public void hideCommas()
     {
         _showCommas = false;

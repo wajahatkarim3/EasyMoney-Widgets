@@ -15,9 +15,14 @@ import java.util.Currency;
 import java.util.Locale;
 
 /**
- * Created by Wajahat Karim on 1/15/2017.
+ * The EditText widget for support of money requirements like currency, number formatting, comma formatting etc.
+ *
+ * Add com.wajahatkarim3.easymoneywidgets.EasyMoneyEditText into your XML layouts and you are done!
+ * For more information, check http://github.com/wajahatkarim3/EasyMoney-Widgets
+ *
+ * @author Wajahat Karim (http://wajahatkarim.com)
+ * @version 1.0.0 01/20/2017
  */
-
 public class EasyMoneyEditText extends EditText {
 
     private String _currencySymbol;
@@ -168,7 +173,17 @@ public class EasyMoneyEditText extends EditText {
         return decoStr;
     }
 
-    //Trims all the comma of the string and returns
+    private void setShowCurrency(boolean value)
+    {
+        _showCurrency = value;
+        updateValue(getText().toString());
+    }
+
+    /**
+     * Get the value of the text without any commas and currency.
+     * For example, if the edit text value is $ 1,34,000.60 then this method will return 134000.60
+     * @return A string of the raw value in the text field
+     */
     public String getValueString() {
 
         String string = getText().toString();
@@ -182,58 +197,84 @@ public class EasyMoneyEditText extends EditText {
         return string;
     }
 
+    /**
+     * Get the value of the text with formatted commas and currency.
+     * For example, if the edit text value is $ 1,34,000.60 then this method will return exactly $ 1,34,000.60
+     * @return A string of the text value in the text field
+     */
     public String getFormattedString()
     {
         return getText().toString();
     }
 
+    /**
+     * Set the currency symbol for the edit text. (Default is US Dollar $).
+     * @param newSymbol the new symbol of currency in string
+     */
     public void setCurrency(String newSymbol)
     {
         _currencySymbol = newSymbol;
         updateValue(getText().toString());
     }
 
+    /**
+     * Set the currency symbol for the edit text. (Default is US Dollar $).
+     * @param locale the locale of new symbol. (Defaul is Locale.US)
+     */
     public void setCurrency(Locale locale)
     {
         setCurrency(Currency.getInstance(locale).getSymbol());
     }
 
+    /**
+     * Set the currency symbol for the edit text. (Default is US Dollar $).
+     * @param currency the currency object of new symbol. (Defaul is Locale.US)
+     */
     public void setCurrency(Currency currency)
     {
         setCurrency(currency.getSymbol());
     }
 
-    public void setShowCurrency(boolean value)
-    {
-        _showCurrency = value;
-        updateValue(getText().toString());
-    }
-
+    /**
+     * Whether currency is shown in the text or not. (Default is true)
+     * @return true if the currency is shown otherwise false.
+     */
     public boolean isShowCurrency()
     {
         return _showCurrency;
     }
 
+    /**
+     * Shows the currency in the text. (Default is shown).
+     */
     public void showCurrencySymbol()
     {
         setShowCurrency(true);
     }
 
+    /**
+     * Hides the currency in the text. (Default is shown).
+     */
     public void hideCurrencySymbol()
     {
         setShowCurrency(false);
     }
 
+    /**
+     * Shows the commas in the text. (Default is shown).
+     */
     public void showCommas()
     {
         _showCommas = true;
         updateValue(getText().toString());
     }
 
+    /**
+     * Hides the commas in the text. (Default is shown).
+     */
     public void hideCommas()
     {
         _showCommas = false;
         updateValue(getText().toString());
     }
-
 }
