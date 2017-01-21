@@ -1,10 +1,21 @@
 EasyMoney-Widgets
 ============
- [ ![Download](https://api.bintray.com/packages/wajahatkarim3/EasyMoney-Widgets/com.wajahatkarim3.EasyMoney-Widgets/images/download.svg) ](https://bintray.com/wajahatkarim3/EasyMoney-Widgets/com.wajahatkarim3.EasyMoney-Widgets/_latestVersion)  [![API](https://img.shields.io/badge/API-15%2B-blue.svg?style=flat)](https://android-arsenal.com/api?level=15)
+ [ ![Download](https://api.bintray.com/packages/wajahatkarim3/EasyMoney-Widgets/com.wajahatkarim3.EasyMoney-Widgets/images/download.svg) ](https://bintray.com/wajahatkarim3/EasyMoney-Widgets/com.wajahatkarim3.EasyMoney-Widgets/_latestVersion) [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-EasyMoney--Widgets-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/5123) [![API](https://img.shields.io/badge/API-15%2B-blue.svg?style=flat)](https://android-arsenal.com/api?level=15)
  
 The widgets (EditText and TextView) for support of money requirements like currency, number formatting, comma formatting etc. 
 
 ![](https://github.com/wajahatkarim3/EasyMoney-Widgets/blob/master/Art/Demo.gif)
+
+**NOTE:** This library support ALL and ANY kind of currency. The currencies in the demo are just for example. The library is NOT limited to those currencies.
+
+Features
+========
+* EasyMoneyEditText and EasyMoneyTextView widgets
+* Custom currency support added through string symbol, Locales, or Currency objects
+* Commas formatting support added
+* Show/hide currency symbol
+* Show/hide commas in the widgets
+* Get raw value in string or formatted value in string
 
 Demo
 ====
