@@ -15,11 +15,12 @@ sudo: false
 # - unzip gradle-2.4-bin.zip
 # - export GRADLE_HOME=$PWD/gradle-2.4
 # - export PATH=$GRADLE_HOME/bin:$PATH
-before_script:
-- echo "sdk.dir=$ANDROID_HOME" > local.properties
+before_install:
+# - echo "sdk.dir=$ANDROID_HOME" > local.properties
+- chmod +x gradlew
 script: 
 # - chmod +x gradlew
-- ./gradlew check --stacktrace
+- ./gradlew build
 branches:
 only:
 - master
