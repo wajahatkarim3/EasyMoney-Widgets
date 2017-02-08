@@ -10,6 +10,10 @@ components:
 sudo: required
 jdk:
 - oraclejdk8
+- wget http://services.gradle.org/distributions/gradle-2.4-bin.zip
+- unzip gradle-2.4-bin.zip
+- export GRADLE_HOME=$PWD/gradle-2.4
+- export PATH=$GRADLE_HOME/bin:$PATH
 install: true
 # before_script:
 # - chmod +x gradlew
