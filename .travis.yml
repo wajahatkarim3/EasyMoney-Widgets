@@ -5,7 +5,7 @@ components:
 - build-tools-23.0.1
 - android-25
 - extra-android-m2repository
-before_script:
+before_install:
 - chmod +x gradlew
 script:
 - ./gradlew build
