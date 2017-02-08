@@ -7,9 +7,9 @@ components:
 - android-23
 - extra-android-support
 - extra-android-m2repository
-sudo: required
-jdk:
-- oraclejdk8
+sudo: false
+# jdk:
+# - oraclejdk8
 before_install:
 - wget http://services.gradle.org/distributions/gradle-2.4-bin.zip
 - unzip gradle-2.4-bin.zip
