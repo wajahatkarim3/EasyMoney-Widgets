@@ -5,8 +5,6 @@ components:
 - build-tools-23.0.1
 - android-25
 - extra-android-m2repository
-script:
-- ./gradlew build
 branches:
 only:
 - master
