@@ -15,7 +15,7 @@ before_install:
 - unzip gradle-2.4-bin.zip
 - export GRADLE_HOME=$PWD/gradle-2.4
 - export PATH=$GRADLE_HOME/bin:$PATH
-# - chmod +x gradlew
+- chmod +x gradlew
 script: "./gradlew assembleRelease --stacktrace"
 branches:
 only:
