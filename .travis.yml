@@ -17,10 +17,10 @@ sudo: false
 # - export PATH=$GRADLE_HOME/bin:$PATH
 before_install:
 # - echo "sdk.dir=$ANDROID_HOME" > local.properties
-- chmod +x gradlew
+# - chmod +x gradlew
 script: 
 # - chmod +x gradlew
-- ./gradlew build
+- ./EasyMoney-Widgets-Demo/gradlew build
 branches:
 only:
 - master
