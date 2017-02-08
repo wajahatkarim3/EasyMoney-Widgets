@@ -17,7 +17,7 @@ before_install:
 - export PATH=$GRADLE_HOME/bin:$PATH
 script: 
 - chmod +x gradlew
-"./gradlew assembleRelease --stacktrace"
+- ./gradlew assembleRelease --stacktrace
 branches:
 only:
 - master
