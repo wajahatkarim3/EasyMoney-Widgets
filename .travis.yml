@@ -16,7 +16,7 @@ before_install:
 - export GRADLE_HOME=$PWD/gradle-2.4
 - export PATH=$GRADLE_HOME/bin:$PATH
 script: 
-- chmod +x gradlew
+# - chmod +x gradlew
 - ./gradlew assembleRelease --stacktrace
 branches:
 only:
