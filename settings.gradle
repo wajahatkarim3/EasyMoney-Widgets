@@ -1,0 +1,2 @@
+include ':app', ':EasyMoney-Widgets-Library'
+// project(':EasyMoney-Widgets-Library').projectDir=new File('../EasyMoney-Widgets-Library')
