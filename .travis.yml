@@ -1,14 +1,14 @@
 language: android
 android:
-        components:
-                - platform-tools
-                - build-tools-25.0.1
-                - android-25
-                - extra-android-m2repository
+components:
+- platform-tools
+- build-tools-25.0.1
+- android-25
+- extra-android-m2repository
 script:
-        - ./gradlew build
+- ./gradlew build
 before_install:
-        - chmod +x gradlew
+- chmod +x gradlew
 branches:
-        only:
+only:
 - master
