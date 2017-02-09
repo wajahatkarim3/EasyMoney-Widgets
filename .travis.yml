@@ -8,6 +8,8 @@ components:
 jdk:
 - oraclejdk8
 sude: required
+licenses:
+- '.+'
 script:
 - ./gradlew build --stacktrace
 before_install:
