@@ -11,16 +11,16 @@ sudo: false
 jdk:
 - oraclejdk8
 licenses:
-- 'android-sdk-preview-license-.+'
-- 'android-sdk-license-.+'
-- 'google-gdk-license-.+'
+- android-sdk-preview-license-.+
+- android-sdk-license-.+
+- google-gdk-license-.+
 # before_install:
 # - wget http://services.gradle.org/distributions/gradle-2.4-bin.zip
 # - unzip gradle-2.4-bin.zip
 # - export GRADLE_HOME=$PWD/gradle-2.4
 # - export PATH=$GRADLE_HOME/bin:$PATH
 before_install:
-# - echo "sdk.dir=$ANDROID_HOME" > local.properties
+- echo "sdk.dir=$ANDROID_HOME" > local.properties
 - chmod +x gradlew
 script: 
 # - chmod +x gradlew
