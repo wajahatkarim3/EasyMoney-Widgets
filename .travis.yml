@@ -6,7 +6,8 @@ components:
 - android-23
 - extra-android-m2repository
 jdk:
-- oraclejdk7
+- oraclejdk8
+sude: required
 script:
 - ./gradlew build --stacktrace
 before_install:
