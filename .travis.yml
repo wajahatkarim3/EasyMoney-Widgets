@@ -11,9 +11,7 @@ sudo: false
 jdk:
 - oraclejdk8
 licenses:
-- android-sdk-preview-license-.+
-- android-sdk-license-.+
-- google-gdk-license-.+
+- '.+'
 notifications:
 email: false
 # before_install:
