@@ -6,7 +6,7 @@ components:
 - android-23
 - extra-android-m2repository
 script:
-- ./gradlew build
+- ./gradlew build --stacktrace
 before_install:
 - chmod +x gradlew
 branches:
