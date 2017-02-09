@@ -4,7 +4,7 @@ components:
 - tools
 - build-tools-25.0.1
 - platform-tools
--extra
+- extra
 - android-25
 - android-17
 sudo: false
