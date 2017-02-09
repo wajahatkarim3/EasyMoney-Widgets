@@ -1,36 +1,50 @@
 language: android
 android:
 components:
-- tools
-- build-tools-23.0.1
 - platform-tools
-- extra
+- build-tools-23.0.1
 - android-23
-- android-17
-sudo: false
-jdk:
-- oraclejdk8
-licenses:
-- '.+'
-notifications:
-email: false
+- extra-android-m2repository
+script:
+- ./gradlew build
+before_install:
+- chmod +x gradlew
+branches:
+only:
+- master
+# language: android
+# android:
+# components:
+# - tools
+# - build-tools-23.0.1
+# - platform-tools
+# - extra
+# - android-23
+# - android-17
+# sudo: false
+# jdk:
+# - oraclejdk8
+# licenses:
+# - '.+'
+# notifications:
+# email: false
 # before_install:
 # - wget http://services.gradle.org/distributions/gradle-2.4-bin.zip
 # - unzip gradle-2.4-bin.zip
 # - export GRADLE_HOME=$PWD/gradle-2.4
 # - export PATH=$GRADLE_HOME/bin:$PATH
-before_install:
-- echo "sdk.dir=$ANDROID_HOME" > local.properties
-- chmod +x gradlew
-script: 
+# before_install:
+# - echo "sdk.dir=$ANDROID_HOME" > local.properties
 # - chmod +x gradlew
-- ./gradlew clean build generateRelease --stacktrace
-before_cache:
-- rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
-cache:
-directories:
-- $HOME/.gradle/caches/
-- $HOME/.gradle/wrapper/
-branches:
-only:
-- master
+# script: 
+# - chmod +x gradlew
+# - ./gradlew clean build generateRelease --stacktrace
+# before_cache:
+# - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
+# cache:
+# directories:
+# - $HOME/.gradle/caches/
+# - $HOME/.gradle/wrapper/
+# branches:
+# only:
+# - master
