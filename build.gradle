@@ -19,13 +19,13 @@ allprojects {
 }
 
 ext {
-  compileSdkVersion = 25
-  buildToolsVersion = "25.0.1"
+  compileSdkVersion = 23
+  buildToolsVersion = "23.0.1"
 
   sourceCompatibility = JavaVersion.VERSION_1_8
 
   minSdkVersion = 15
-  targetSdkVersion = 25
+  targetSdkVersion = 23
 }
 
 task clean(type: Delete) {
