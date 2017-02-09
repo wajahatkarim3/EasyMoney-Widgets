@@ -2,11 +2,11 @@ language: android
 android:
 components:
 - tools
-- platform-tools
 - build-tools-25.0.1
+- platform-tools
+-extra
 - android-25
-- extra-android-support
-- extra-android-m2repository
+- android-17
 sudo: false
 jdk:
 - oraclejdk8
