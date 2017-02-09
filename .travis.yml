@@ -14,6 +14,8 @@ licenses:
 - android-sdk-preview-license-.+
 - android-sdk-license-.+
 - google-gdk-license-.+
+notifications:
+email: false
 # before_install:
 # - wget http://services.gradle.org/distributions/gradle-2.4-bin.zip
 # - unzip gradle-2.4-bin.zip
@@ -24,7 +26,7 @@ before_install:
 - chmod +x gradlew
 script: 
 # - chmod +x gradlew
-- ./gradlew clean build generateRelease
+- ./gradlew clean build generateRelease --stacktrace
 branches:
 only:
 - master
