@@ -75,19 +75,28 @@ XML
 ```
 Customization in XML
 ---
-All customizable attributes for EasyFlipView
-```xml
-<declare-styleable name="EasyMoneyWidgets">
-	<!-- The currency symbol for the widgets (Default is US Dollar $ ) -->
-	<attr name="currency_symbol" format="string"/>
-	
-	<!-- Whether to show the currency symbol in the widgets (Default is true) -->
-	<attr name="show_currency" format="boolean"/>
-	
-	<!-- Whether to show the commas between numbers in the widgets (Default is true) -->
-	<attr name="show_commas" format="boolean"/>
-</declare-styleable>
-```
+All customizable attributes for EasyMoneyWidgets
+<table>
+    <th>Attribute Name</th>
+    <th>Default Value</th>
+    <th>Description</th>
+    <tr>
+        <td>app:currency_symbol="$"</td>
+        <td>US Dollar $</td>
+        <td>The currency symbol for the widgets</td>
+	</tr>
+    <tr>
+        <td>app:show_currency="true"</td>
+        <td>true</td>
+        <td>Whether to show the currency symbol in the widgets</td>
+    </tr>
+     <tr>
+            <td>app:show_commas="true"</td>
+            <td>true</td>
+            <td>Whether to show the commas between numbers in the widgets</td>
+        </tr>
+    </table>
+    
 In Code (Java)
 ----
 ```java
@@ -128,6 +137,7 @@ This project needs you! If you would like to support this project's further deve
 * **[Donate $50](https://www.paypal.me/WajahatKarim/50)**: I really really want to support this project, great job!
 * **[Donate $100](https://www.paypal.me/WajahatKarim/100)**: You are the man! This project saved me hours (if not days) of struggle and hard work, simply awesome!
 * **[Donate $2799](https://www.paypal.me/WajahatKarim/2799)**: Go buddy, buy Macbook Pro for yourself!
+
 Of course, you can also choose what you want to donate, all donations are awesome!
 
 Developed By
